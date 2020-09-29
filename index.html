@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+</body>
+<script src="lodash.js"></script>
+<script src="platform.js"></script>
+<script src="benchmark.js"></script>
+<script>
+  var suite = new Benchmark.Suite;
+  // add tests
+  function test1(){
+    /o/.test('Hello World!');
+  }
+  function test2(){
+    'Hello World!'.indexOf('o') > -1;
+  }
+  suite.add('test1', test1)
+    .add('test2', test2)
+    // add listeners
+    .on('cycle', function (event) {
+      console.log(String(event.target));
+    })
+    .on('complete', function () {
+      console.log(this)
+      console.log(this.filter)
+      console.log('Fastest is ' + this.filter('fastest').map('name'));
+    })
+    // run async
+    .run({ 'async': true });
+</script>
+
+</html>
